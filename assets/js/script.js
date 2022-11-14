@@ -1,14 +1,14 @@
-// 
+// Global variables
 var questionNumber = 0;
 
 // Variables from page elements
-var optionsEl = document.getElementById("options")
+var optionsEl = document.getElementById("options");
 
 // Button variables
 var startButton = document.getElementById("startButton");
 
 function startQuiz() {
-    console.log("Am I working?");
+    console.log("startQuiz ran");
     var welcomeScreenEl = document.getElementById("welcomeScreen");
     welcomeScreenEl.setAttribute("class", "hidden");
 
@@ -19,7 +19,8 @@ function startQuiz() {
 };
 
 function displayQuestion() {
-    var questionInfo = questions[questionNumber]
+    console.log("displayQuestion ran");
+    var questionInfo = questions[questionNumber];
 
     var questionEl = document.getElementById("question");
     questionEl.textContent = questionInfo.question;
@@ -27,13 +28,33 @@ function displayQuestion() {
     for (var i = 0; i < questionInfo.options.length; i++) {
         var option = questionInfo.options[i];
         var optionButton = document.createElement("button");
-        optionButton.setAttribute("class", "potentialOption")
+        optionButton.setAttribute("class", "option")
+        optionButton.setAttribute("value", option)
 
         optionButton.textContent = i + option;
 
         optionsEl.appendChild(optionButton);
-    }
-}
+    };
+};
+
+function chooseOption(event) {
+    console.log("chooseOption ran");
+    var buttonEl = event.target;
+
+    if (!buttonEl.matches(".option")) {
+        return;
+    };
+
+    if (buttonEl.option !== questions[questionNumber].answer) {
+        console.log("Incorrect!");
+    } else {
+        console.log("Correct!");
+    };
+
+    questionNumber++;
+
+    displayQuestion();
+};
 
 
 
@@ -93,3 +114,4 @@ var questions = [
 ];
 
 startButton.addEventListener("click", startQuiz);
+optionsEl.addEventListener("click", chooseOption);
