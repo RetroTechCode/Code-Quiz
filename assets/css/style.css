@@ -7,10 +7,6 @@
     display: none;
 }
 
-.viewHigh {
-    margin: 5px;
-}
-
 .welcomeScreen {
     display: block;
     margin: 5rem auto 0 auto;
@@ -18,7 +14,25 @@
     max-width: 800px;
 }
 
+.questionScreen {
+    display: block;
+    margin: 8rem auto 0 auto;
+    max-width: 800px;
+}
+
 #welcomeTitle span {
     color: red;
+}
+
+#viewHigh {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#timer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header class="viewHigh">View High Scores</header>
+    <div id="viewHigh">View High Scores</div>
 
     <div id="welcomeScreen">
         <section class="welcomeScreen">
@@ -23,11 +23,12 @@
                 top score!
             </p>
             <button id="startButton">Start Quiz</button>
-        </section>>
+        </section>
     </div>
 
     <div id="questionScreen" class="hidden">
         <section class="questionScreen">
+            <div id="timer">Time remaining: <span id="timeLeft">0</span> seconds</div>
             <h2 id=question>Test</h2>
             <div id="options"></div>
         </section>
