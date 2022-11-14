@@ -13,28 +13,36 @@
 <body>
     <header class="viewHigh">View High Scores</header>
 
-    <div class="welcomeScreen">
-        <h1 class="welcomeText">Welcome to my<span> Coding Quiz</span>!</h1>
-        <p>
-            The quiz consists of 10 Javascript-related questions. You will be timed, starting at 90 seconds.
-            For each questions you guess incorrectly, you will lose an additional 10 seconds. At the end your
-            score will be calculated by # of correct answers multiplied by time remaining! <br><br>Try to get the top score!
-        </p>
-        <button id="startButton">Start Quiz</button>
+    <div id="welcomeScreen">
+        <section class="welcomeScreen">
+            <h1 id="welcomeTitle">Welcome to my<span> Coding Quiz</span>!</h1>
+            <p id="welcomeDesc">
+                The quiz consists of 10 Javascript-related questions. You will be timed, starting at 90 seconds.
+                For each questions you guess incorrectly, you will lose an additional 10 seconds. At the end your
+                score will be calculated by # of correct answers multiplied by time remaining! <br><br>Try to get the
+                top score!
+            </p>
+            <button id="startButton">Start Quiz</button>
+        </section>>
     </div>
 
-    <div id="questionScreen">
-        <h1>Question Placeholder Text</h1>
-        <ul id="options">
-            <li id="optionOne">Placeholder text</li>
-            <li id="optionTwo">Placeholder text</li>
-            <li id="optionThree">Placeholder text</li>
-            <li id="optionFour">Placeholder text</li>
-        </ul>
+    <div id="questionScreen" class="hidden">
+        <section class="questionScreen">
+            <h2 id=question>Test</h2>
+            <div id="options"></div>
+        </section>
     </div>
 
-    <div class="highScoreScreen" class="hidden">
+    <div id="scoreScreen" class="hidden">
+        <section class="scoreScreen">
 
+        </section>
+    </div>
+
+    <div id="highScoreScreen" class="hidden">
+        <section class="highScoreScreen">
+
+        </section>
     </div>
 
     <script src="./assets/js/script.js"></script>

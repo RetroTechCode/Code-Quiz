@@ -7,6 +7,10 @@
     display: none;
 }
 
+.viewHigh {
+    margin: 5px;
+}
+
 .welcomeScreen {
     display: block;
     margin: 5rem auto 0 auto;
@@ -14,14 +18,7 @@
     max-width: 800px;
 }
 
-.viewHigh {
-    margin: 5px;
-}
-
-.welcomeText span {
+#welcomeTitle span {
     color: red;
 }
 
-#options {
-    list-style: numbered;
-}

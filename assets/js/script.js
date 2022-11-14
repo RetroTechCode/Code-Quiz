@@ -1,4 +1,19 @@
-var startButton = document.querySelector("#start");
+// Button variables
+var startButton = document.getElementById("startButton");
+
+
+function startQuiz() {
+    console.log("Am I working?");
+    var welcomeScreenEl = document.getElementById("welcomeScreen");
+    welcomeScreenEl.setAttribute("class", "hidden");
+
+    var questionScreenEl = document.getElementById("questionScreen");
+    questionScreenEl.removeAttribute("class");
+};
+
+
+
+
 
 var questions = {
     questionOne: {
@@ -51,8 +66,6 @@ var questions = {
         options: ["[ ]", "( )", "< >", "{ }"],
         answer: "( )",
     }
-}
+};
 
-startButton.addEventListener("click", function () {
-    console.log("Begin!");
-});
+startButton.addEventListener("click", startQuiz);
