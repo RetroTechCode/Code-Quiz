@@ -1,6 +1,9 @@
 // 
 var questionNumber = 0;
 
+// Variables from page elements
+var optionsEl = document.getElementById("options")
+
 // Button variables
 var startButton = document.getElementById("startButton");
 
@@ -12,15 +15,24 @@ function startQuiz() {
     var questionScreenEl = document.getElementById("questionScreen");
     questionScreenEl.removeAttribute("class");
 
-    quiz();
+    displayQuestion();
 };
 
-function quiz() {
+function displayQuestion() {
     var questionInfo = questions[questionNumber]
 
     var questionEl = document.getElementById("question");
     questionEl.textContent = questionInfo.question;
 
+    for (var i = 0; i < questionInfo.options.length; i++) {
+        var option = questionInfo.options[i];
+        var optionButton = document.createElement("button");
+        optionButton.setAttribute("class", "potentialOption")
+
+        optionButton.textContent = i + option;
+
+        optionsEl.appendChild(optionButton);
+    }
 }
 
 
