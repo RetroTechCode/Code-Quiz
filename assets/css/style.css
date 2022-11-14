@@ -3,6 +3,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .welcomeScreen {
     display: block;
     margin: 5rem auto 0 auto;
@@ -16,4 +20,8 @@
 
 .welcomeText span {
     color: red;
+}
+
+#options {
+    list-style: numbered;
 }
