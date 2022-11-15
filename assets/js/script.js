@@ -24,6 +24,8 @@ function displayQuestion() {
 
     var questionEl = document.getElementById("question");
     questionEl.textContent = questionInfo.question;
+    
+    optionsEl.innerHTML = '';
 
     for (var i = 0; i < questionInfo.options.length; i++) {
         var option = questionInfo.options[i];
@@ -31,7 +33,7 @@ function displayQuestion() {
         optionButton.setAttribute("class", "option")
         optionButton.setAttribute("value", option)
 
-        optionButton.textContent = i + option;
+        optionButton.textContent = i+1 + ". " + option;
 
         optionsEl.appendChild(optionButton);
     };
