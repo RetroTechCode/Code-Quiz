@@ -47,7 +47,7 @@ function chooseOption(event) {
         return;
     };
 
-    if (buttonEl.option !== questions[questionNumber].answer) {
+    if (buttonEl.value !== questions[questionNumber].answer) {
         console.log("Incorrect!");
     } else {
         console.log("Correct!");
