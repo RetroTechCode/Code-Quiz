@@ -7,18 +7,22 @@ var questionsCorrect = 0;
 // Variables from page elements
 var optionsEl = document.getElementById("options");
 var timeLeftEl = document.getElementById("timeLeft");
-var scoreScreenEl = document.getElementById("scoreScreen");
 var responseEl = document.getElementById("response");
+
+// Variables used to create new "pages"
+var welcomeScreenEl = document.getElementById("welcomeScreen");
+var questionScreenEl = document.getElementById("questionScreen");
+var scoreScreenEl = document.getElementById("scoreScreen");
+var highScoreScreenEl = document.getElementById("highScoreScreen");
 
 // Button variables
 var startButton = document.getElementById("startButton");
 
 function startQuiz() {
     console.log("startQuiz ran");
-    var welcomeScreenEl = document.getElementById("welcomeScreen");
+
     welcomeScreenEl.setAttribute("class", "hidden");
 
-    var questionScreenEl = document.getElementById("questionScreen");
     questionScreenEl.removeAttribute("class");
 
     timeVar = setInterval(timerCountdown, 1000);
@@ -108,10 +112,8 @@ function scoreScreen() {
     clearInterval(timeVar);
     var userScore = time * questionsCorrect;
 
-    var questionScreenEl = document.getElementById("questionScreen");
     questionScreenEl.setAttribute("class", "hidden");
 
-    var scoreScreenEl = document.getElementById("scoreScreen");
     scoreScreenEl.removeAttribute("class");
 
     var scoreEl = document.getElementById("score");
@@ -121,6 +123,11 @@ function scoreScreen() {
 
 };
 
+function highScoreScreen() {
+    console.log("highScoreScreen ran");
+
+
+}
 
 
 
