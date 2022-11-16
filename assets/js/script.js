@@ -1,8 +1,11 @@
 // Global variables
 var questionNumber = 0;
+var time = 90;
+var timeVar;
 
 // Variables from page elements
 var optionsEl = document.getElementById("options");
+var timeLeftEl = document.getElementById("timeLeft");
 
 // Button variables
 var startButton = document.getElementById("startButton");
@@ -15,8 +18,20 @@ function startQuiz() {
     var questionScreenEl = document.getElementById("questionScreen");
     questionScreenEl.removeAttribute("class");
 
+    timeVar = setInterval(timerCountdown, 1000);
+
     displayQuestion();
 };
+
+function timerCountdown() {
+    time--;
+
+    timeLeftEl.textContent = time;
+
+    if (time <= 0) {
+        scoreScreen();
+    };
+}
 
 function displayQuestion() {
     console.log("displayQuestion ran");
@@ -30,8 +45,8 @@ function displayQuestion() {
     for (var i = 0; i < questionInfo.options.length; i++) {
         var option = questionInfo.options[i];
         var optionButton = document.createElement("button");
-        optionButton.setAttribute("class", "option")
-        optionButton.setAttribute("value", option)
+        optionButton.setAttribute("class", "option");
+        optionButton.setAttribute("value", option);
 
         optionButton.textContent = i+1 + ". " + option;
 
@@ -57,6 +72,10 @@ function chooseOption(event) {
 
     displayQuestion();
 };
+
+function scoreScreen () {
+    console.log("scoreScreen ran");
+}
 
 
 
