@@ -95,7 +95,7 @@ function chooseOption(event) {
         responseEl.setAttribute("class", "incorrect");
         responseEl.textContent = "Incorrect!";
 
-    // If selected option is CORRECT
+        // If selected option is CORRECT
     } else {
         console.log("Correct!");
 
@@ -105,9 +105,9 @@ function chooseOption(event) {
         responseEl.textContent = "Correct!";
     };
 
-    setTimeout(function() {
+    setTimeout(function () {
         responseEl.setAttribute("class", "hidden");
-      }, 1000);
+    }, 1000);
 
     questionNumber++;
 
@@ -137,111 +137,96 @@ function saveScore() {
     var userNameEl = document.getElementById("userName");
     var userName = userNameEl.value;
 
-    var userInfo = {
-        userName: userName,
-        userScore: userScore,
-    };
+    if (userName !== '') {
+        var scores = JSON.parse(window.localStorage.getItem("scores")) || [];
 
-    localStorage.setItem("scores", "userInfo");
-    var testing = localStorage.getItem("scores");
-    console.log(testing);
-
-}
-
-function highScoreScreen() {
-    console.log("highScoreScreen ran");
-
-    // Make sure that any page the user could be on is cleared
-    welcomeScreenEl.setAttribute("class", "hidden");
-    questionScreenEl.setAttribute("class", "hidden");
-    scoreScreenEl.setAttribute("class", "hidden");
-
-    // Unhide highscore screen
-    highScoreScreenEl.removeAttribute("class");
-
-    // Hide the view high scores button
-    viewHighBtn.setAttribute("class", "hidden");
-
-    // Verify the start over button is shown
-    returnHomeEl.removeAttribute("class")
-
-}
-
-function returnHome() {
-    // Reset quiz
-    clearInterval(timeVar);
-    time = 90;
-    questionsCorrect = 0;
-
-    // Make sure that any page the user could be on is cleared
-    questionScreenEl.setAttribute("class", "hidden");
-    scoreScreenEl.setAttribute("class", "hidden");
-    highScoreScreenEl.setAttribute("class", "hidden");
-
-    // Unhide the welcome screen
-    welcomeScreenEl.removeAttribute("class");
-
-    // Hide the button when the user is already at the start
-    returnHomeEl.setAttribute("class", "hidden");
-
-    // Verify the view high scores button is visible
-    viewHighBtn.removeAttribute("class");
-}
-
-startButton.addEventListener("click", startQuiz);
-returnHomeEl.addEventListener("click", returnHome);
-viewHighBtn.addEventListener("click", highScoreScreen);
-optionsEl.addEventListener("click", chooseOption);
-
-var questions = [
-    {
-        question: "Which tag would you use to link your Javasript file to your HTML?",
-        options: ["<link> in the head", "<link> in the body", "<script> in the head", "<script> in the body"],
-        answer: "<script> in the body",
-    },
-    {
-        question: "An array is stored within which of the following?",
-        options: ["[ ]", "( )", "< >", "{ }"],
-        answer: "[ ]",
-    },
-    {
-        question: "An if statement is sometimes followed by a _____ statement.",
-        options: ["when", "then", "else", "why"],
-        answer: "else",
-    },
-    {
-        question: "What does event.stopPropagation() do in Javascript?",
-        options: ["Prevents the default behaviors from occurring", "Prevents interacting through objects on the page", "Refreshes the page", "Nothing"],
-        answer: "Prevents interacting through objects on the page",
-    },
-    {
-        question: "Which is the following is used when declaring an object?",
-        options: ["[ ]", "( )", "< >", "{ }"],
-        answer: "{ }",
-    },
-    {
-        question: "_____ is used for strict equality.",
-        options: ["=", "==", "===", "!=="],
-        answer: "===",
-    },
-    {
-        question: "A boolean response can be _____ or _____.",
-        options: ["Yes, No", "0, 1", "True, False", "If, Then"],
-        answer: "True, False",
-    },
-    {
-        question: "'Hello World!' is an example of a(n) _____.",
-        options: ["String", "Array", "Object", "Boolean"],
-        answer: "String",
-    },
-    {
-        question: "What does event.preventDefault() do in Javascript?",
-        options: ["Prevents the default behaviors from occurring", "Prevents interacting through objects on the page", "Refreshes the page", "Nothing"],
-        answer: "Prevents the default behaviors from occurring",
-    },
-    {
-        question: "Which of the following is used when declaring a function?",
-        options: ["[ ]", "( )", "< >", "{ }"],
-        answer: "( )",
+        var userInfo = {
+            userName: userName,
+            userScore: userScore,
+        };
+        
+        scores.push(userInfo);
+        window.localStorage.setItem("scores", JSON.stringify(scores));
     }
-];
+}
+
+    function highScoreScreen() {
+        console.log("highScoreScreen ran");
+
+        // Make sure that any page the user could be on is cleared
+        welcomeScreenEl.setAttribute("class", "hidden");
+        questionScreenEl.setAttribute("class", "hidden");
+        scoreScreenEl.setAttribute("class", "hidden");
+
+        // Unhide highscore screen
+        highScoreScreenEl.removeAttribute("class");
+
+        // Hide the view high scores button
+        viewHighBtn.setAttribute("class", "hidden");
+
+        // Verify the start over button is shown
+        returnHomeEl.removeAttribute("class")
+
+    }
+
+    function returnHome() {
+        window.location.reload();
+    }
+
+    startButton.addEventListener("click", startQuiz);
+    returnHomeEl.addEventListener("click", returnHome);
+    viewHighBtn.addEventListener("click", highScoreScreen);
+    optionsEl.addEventListener("click", chooseOption);
+
+    var questions = [
+        {
+            question: "Which tag would you use to link your Javasript file to your HTML?",
+            options: ["<link> in the head", "<link> in the body", "<script> in the head", "<script> in the body"],
+            answer: "<script> in the body",
+        },
+        {
+            question: "An array is stored within which of the following?",
+            options: ["[ ]", "( )", "< >", "{ }"],
+            answer: "[ ]",
+        },
+        {
+            question: "An if statement is sometimes followed by a _____ statement.",
+            options: ["when", "then", "else", "why"],
+            answer: "else",
+        },
+        {
+            question: "What does event.stopPropagation() do in Javascript?",
+            options: ["Prevents the default behaviors from occurring", "Prevents interacting through objects on the page", "Refreshes the page", "Nothing"],
+            answer: "Prevents interacting through objects on the page",
+        },
+        {
+            question: "Which is the following is used when declaring an object?",
+            options: ["[ ]", "( )", "< >", "{ }"],
+            answer: "{ }",
+        },
+        {
+            question: "_____ is used for strict equality.",
+            options: ["=", "==", "===", "!=="],
+            answer: "===",
+        },
+        {
+            question: "A boolean response can be _____ or _____.",
+            options: ["Yes, No", "0, 1", "True, False", "If, Then"],
+            answer: "True, False",
+        },
+        {
+            question: "'Hello World!' is an example of a(n) _____.",
+            options: ["String", "Array", "Object", "Boolean"],
+            answer: "String",
+        },
+        {
+            question: "What does event.preventDefault() do in Javascript?",
+            options: ["Prevents the default behaviors from occurring", "Prevents interacting through objects on the page", "Refreshes the page", "Nothing"],
+            answer: "Prevents the default behaviors from occurring",
+        },
+        {
+            question: "Which of the following is used when declaring a function?",
+            options: ["[ ]", "( )", "< >", "{ }"],
+            answer: "( )",
+        }
+    ]
