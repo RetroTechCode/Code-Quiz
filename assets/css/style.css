@@ -14,7 +14,7 @@ button {
     display: none;
 }
 
-.welcomeScreen {
+.welcomeScreen, .scoreScreen {
     display: block;
     margin: 5rem auto 0 auto;
     text-align: center;

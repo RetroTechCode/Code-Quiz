@@ -2,10 +2,12 @@
 var questionNumber = 0;
 var time = 90;
 var timeVar;
+var questionsCorrect = 0;
 
 // Variables from page elements
 var optionsEl = document.getElementById("options");
 var timeLeftEl = document.getElementById("timeLeft");
+var scoreScreenEl = document.getElementById("scoreScreen");
 
 // Button variables
 var startButton = document.getElementById("startButton");
@@ -19,6 +21,7 @@ function startQuiz() {
     questionScreenEl.removeAttribute("class");
 
     timeVar = setInterval(timerCountdown, 1000);
+    timeLeftEl.textContent = time;
 
     displayQuestion();
 };
@@ -39,7 +42,7 @@ function displayQuestion() {
 
     var questionEl = document.getElementById("question");
     questionEl.textContent = questionInfo.question;
-    
+
     optionsEl.innerHTML = '';
 
     for (var i = 0; i < questionInfo.options.length; i++) {
@@ -48,7 +51,7 @@ function displayQuestion() {
         optionButton.setAttribute("class", "option");
         optionButton.setAttribute("value", option);
 
-        optionButton.textContent = i+1 + ". " + option;
+        optionButton.textContent = i + 1 + ". " + option;
 
         optionsEl.appendChild(optionButton);
     };
@@ -64,18 +67,40 @@ function chooseOption(event) {
 
     if (buttonEl.value !== questions[questionNumber].answer) {
         console.log("Incorrect!");
+        time -= 15;
+
+        if (time <= 0) {
+            time = 0;
+        }
     } else {
         console.log("Correct!");
+        questionsCorrect++;
     };
 
     questionNumber++;
 
-    displayQuestion();
+    if (time <= 0 || questionNumber === questions.length) {
+        scoreScreen();
+    } else {
+        displayQuestion();
+    };
 };
 
-function scoreScreen () {
+function scoreScreen() {
     console.log("scoreScreen ran");
-}
+    clearInterval(timeVar);
+    var userScore = time * questionsCorrect;
+
+    var questionScreenEl = document.getElementById("questionScreen");
+    questionScreenEl.setAttribute("class", "hidden");
+
+    var scoreScreenEl = document.getElementById("scoreScreen");
+    scoreScreenEl.removeAttribute("class");
+
+    var scoreEl = document.getElementById("score");
+    scoreEl.textContent = "Your Score: " + userScore;
+
+};
 
 
 
