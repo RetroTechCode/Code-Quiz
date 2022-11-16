@@ -8,6 +8,7 @@ var questionsCorrect = 0;
 var optionsEl = document.getElementById("options");
 var timeLeftEl = document.getElementById("timeLeft");
 var scoreScreenEl = document.getElementById("scoreScreen");
+var responseEl = document.getElementById("response");
 
 // Button variables
 var startButton = document.getElementById("startButton");
@@ -61,21 +62,37 @@ function chooseOption(event) {
     console.log("chooseOption ran");
     var buttonEl = event.target;
 
+    // Verify that the user is clicking on a button
     if (!buttonEl.matches(".option")) {
         return;
     };
 
+    // If selected option is INCORRECT
     if (buttonEl.value !== questions[questionNumber].answer) {
         console.log("Incorrect!");
         time -= 15;
 
+        // Prevent time from going negative
         if (time <= 0) {
             time = 0;
         }
+
+        responseEl.setAttribute("class", "incorrect");
+        responseEl.textContent = "Incorrect!";
+
+    // If selected option is CORRECT
     } else {
         console.log("Correct!");
+
         questionsCorrect++;
+
+        responseEl.setAttribute("class", "correct");
+        responseEl.textContent = "Correct!";
     };
+
+    setTimeout(function() {
+        responseEl.setAttribute("class", "hidden");
+      }, 1000);
 
     questionNumber++;
 
@@ -100,7 +117,7 @@ function scoreScreen() {
     var scoreEl = document.getElementById("score");
     scoreEl.textContent = userScore;
 
-    
+
 
 };
 

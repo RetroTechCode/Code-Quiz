@@ -31,6 +31,14 @@ span {
     max-width: 800px;
 }
 
+.incorrect {
+    color: red;
+}
+
+.correct {
+    color: rgb(0, 233, 0);
+}
+
 #viewHigh {
     position: absolute;
     top: 10px;
@@ -45,4 +53,8 @@ span {
 
 #startButton, #saveScore {
     margin: 1rem auto 0 auto;
+}
+
+#response {
+    margin: 1rem 0 0 0;
 }
