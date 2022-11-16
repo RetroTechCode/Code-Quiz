@@ -98,7 +98,9 @@ function scoreScreen() {
     scoreScreenEl.removeAttribute("class");
 
     var scoreEl = document.getElementById("score");
-    scoreEl.textContent = "Your Score: " + userScore;
+    scoreEl.textContent = userScore;
+
+    
 
 };
 
