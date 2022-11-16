@@ -3,6 +3,7 @@ var questionNumber = 0;
 var time = 90;
 var timeVar;
 var questionsCorrect = 0;
+var userScore = time * questionsCorrect;
 
 // Variables from page elements
 var optionsEl = document.getElementById("options");
@@ -18,22 +19,28 @@ var highScoreScreenEl = document.getElementById("highScoreScreen");
 
 // Button variables
 var startButton = document.getElementById("startButton");
+var viewHighBtn = document.getElementById("viewHigh");
 
 function startQuiz() {
     console.log("startQuiz ran");
 
+    // Hide welcome screen
     welcomeScreenEl.setAttribute("class", "hidden");
 
+    // Unhide start over button
     returnHomeEl.removeAttribute("class");
 
+    // Unhide question screen
     questionScreenEl.removeAttribute("class");
 
+    // Start timer
     timeVar = setInterval(timerCountdown, 1000);
     timeLeftEl.textContent = time;
 
     displayQuestion();
 };
 
+// Timer countdown function
 function timerCountdown() {
     time--;
 
@@ -44,6 +51,7 @@ function timerCountdown() {
     };
 }
 
+// Fill in the question and multiple choice section
 function displayQuestion() {
     console.log("displayQuestion ran");
     var questionInfo = questions[questionNumber];
@@ -113,7 +121,6 @@ function chooseOption(event) {
 function scoreScreen() {
     console.log("scoreScreen ran");
     clearInterval(timeVar);
-    var userScore = time * questionsCorrect;
 
     questionScreenEl.setAttribute("class", "hidden");
 
@@ -122,14 +129,41 @@ function scoreScreen() {
     var scoreEl = document.getElementById("score");
     scoreEl.textContent = userScore;
 
-
-
+    var saveScoreBtn = document.getElementById("saveScore");
+    saveScoreBtn.addEventListener("click", saveScore, highScoreScreen);
 };
+
+function saveScore() {
+    var userNameEl = document.getElementById("userName");
+    var userName = userNameEl.value;
+
+    var userInfo = {
+        userName: userName,
+        userScore: userScore,
+    };
+
+    localStorage.setItem("scores", "userInfo");
+    var testing = localStorage.getItem("scores");
+    console.log(testing);
+
+}
 
 function highScoreScreen() {
     console.log("highScoreScreen ran");
 
-    
+    // Make sure that any page the user could be on is cleared
+    welcomeScreenEl.setAttribute("class", "hidden");
+    questionScreenEl.setAttribute("class", "hidden");
+    scoreScreenEl.setAttribute("class", "hidden");
+
+    // Unhide highscore screen
+    highScoreScreenEl.removeAttribute("class");
+
+    // Hide the view high scores button
+    viewHighBtn.setAttribute("class", "hidden");
+
+    // Verify the start over button is shown
+    returnHomeEl.removeAttribute("class")
 
 }
 
@@ -144,13 +178,20 @@ function returnHome() {
     scoreScreenEl.setAttribute("class", "hidden");
     highScoreScreenEl.setAttribute("class", "hidden");
 
-    // Unhide the home page
+    // Unhide the welcome screen
     welcomeScreenEl.removeAttribute("class");
 
     // Hide the button when the user is already at the start
     returnHomeEl.setAttribute("class", "hidden");
+
+    // Verify the view high scores button is visible
+    viewHighBtn.removeAttribute("class");
 }
 
+startButton.addEventListener("click", startQuiz);
+returnHomeEl.addEventListener("click", returnHome);
+viewHighBtn.addEventListener("click", highScoreScreen);
+optionsEl.addEventListener("click", chooseOption);
 
 var questions = [
     {
@@ -204,7 +245,3 @@ var questions = [
         answer: "( )",
     }
 ];
-
-startButton.addEventListener("click", startQuiz);
-optionsEl.addEventListener("click", chooseOption);
-returnHomeEl.addEventListener("click", returnHome);
