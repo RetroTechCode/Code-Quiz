@@ -14,11 +14,17 @@ span {
     color: red;
 }
 
+li:nth-child(odd) {
+    background-color: rgb(207, 239, 250);
+}
+
 .hidden {
     display: none;
 }
 
-.welcomeScreen, .scoreScreen {
+.welcomeScreen,
+.scoreScreen,
+.highScoreScreen {
     display: block;
     margin: 5rem auto 0 auto;
     text-align: center;
@@ -39,6 +45,10 @@ span {
     color: rgb(0, 233, 0);
 }
 
+.highScoreScreen h2 {
+    font-size: 150%;
+}
+
 #viewHigh {
     position: absolute;
     top: 0;
@@ -57,10 +67,16 @@ span {
     right: 10px;
 }
 
-#startButton, #saveScore {
+#startButton,
+#saveScore {
     margin: 1rem auto 0 auto;
 }
 
 #response {
     margin: 1rem 0 0 0;
+}
+
+#scoreOl {
+    list-style: decimal inside;
+    text-align: left;
 }

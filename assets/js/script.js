@@ -3,7 +3,7 @@ var questionNumber = 0;
 var time = 90;
 var timeVar;
 var questionsCorrect = 0;
-var userScore = time * questionsCorrect;
+var userScore;
 
 // Variables from page elements
 var optionsEl = document.getElementById("options");
@@ -21,9 +21,8 @@ var highScoreScreenEl = document.getElementById("highScoreScreen");
 var startButton = document.getElementById("startButton");
 var viewHighBtn = document.getElementById("viewHigh");
 
-function startQuiz() {
-    console.log("startQuiz ran");
 
+function startQuiz() {
     // Hide welcome screen
     welcomeScreenEl.setAttribute("class", "hidden");
 
@@ -46,6 +45,7 @@ function timerCountdown() {
 
     timeLeftEl.textContent = time;
 
+    // If time runs out send the user to the score screen
     if (time <= 0) {
         scoreScreen();
     };
@@ -53,14 +53,17 @@ function timerCountdown() {
 
 // Fill in the question and multiple choice section
 function displayQuestion() {
-    console.log("displayQuestion ran");
+    // Populates "questionInfo" with the properties from the question the user is currently on.
     var questionInfo = questions[questionNumber];
 
+    // Writes the question on the page
     var questionEl = document.getElementById("question");
     questionEl.textContent = questionInfo.question;
 
+    // Clears previous options to prevent new ones from stacking below the previous options
     optionsEl.innerHTML = '';
 
+    // Populates the options for the given question
     for (var i = 0; i < questionInfo.options.length; i++) {
         var option = questionInfo.options[i];
         var optionButton = document.createElement("button");
@@ -73,8 +76,8 @@ function displayQuestion() {
     };
 };
 
+// Functionality for the user selecting one of the options
 function chooseOption(event) {
-    console.log("chooseOption ran");
     var buttonEl = event.target;
 
     // Verify that the user is clicking on a button
@@ -84,7 +87,6 @@ function chooseOption(event) {
 
     // If selected option is INCORRECT
     if (buttonEl.value !== questions[questionNumber].answer) {
-        console.log("Incorrect!");
         time -= 15;
 
         // Prevent time from going negative
@@ -97,20 +99,24 @@ function chooseOption(event) {
 
         // If selected option is CORRECT
     } else {
-        console.log("Correct!");
-
         questionsCorrect++;
 
         responseEl.setAttribute("class", "correct");
         responseEl.textContent = "Correct!";
     };
 
+    // Hide the correct/incorrect response after it has appeared briefly
     setTimeout(function () {
         responseEl.setAttribute("class", "hidden");
     }, 1000);
 
+    // Move to the next question
     questionNumber++;
 
+    // Calculate the final user score
+    userScore = time * questionsCorrect;
+
+    // Decide if the quiz is over or if the next question should be displayed
     if (time <= 0 || questionNumber === questions.length) {
         scoreScreen();
     } else {
@@ -119,7 +125,6 @@ function chooseOption(event) {
 };
 
 function scoreScreen() {
-    console.log("scoreScreen ran");
     clearInterval(timeVar);
 
     questionScreenEl.setAttribute("class", "hidden");
@@ -137,9 +142,7 @@ function saveScore() {
     var userNameEl = document.getElementById("userName");
     var userName = userNameEl.value;
 
-    var scores = JSON.parse(window.localStorage.getItem("scores")) || [ ];
-
-    console.log(scores);
+    var scores = JSON.parse(window.localStorage.getItem("scores")) || [];
 
     var userInfo = {
         userName: userName,
@@ -153,7 +156,6 @@ function saveScore() {
 }
 
 function highScoreScreen() {
-    console.log("highScoreScreen ran");
 
     // Make sure that any page the user could be on is cleared
     welcomeScreenEl.setAttribute("class", "hidden");
@@ -169,13 +171,27 @@ function highScoreScreen() {
     // Verify the start over button is shown
     returnHomeEl.removeAttribute("class")
 
+    var scores = JSON.parse(window.localStorage.getItem("scores")) || [];
 
+    scores.sort(function (a, b) {
+        return b.userScore - a.userScore;
+    })
+
+    for (var i = 0; i <= 10; i++) {
+        var scoreLi = document.createElement("li");
+        scoreLi.textContent = scores[i].userName + ": " + scores[i].userScore;
+
+        var scoreOl = document.getElementById("scoreOl");
+        scoreOl.appendChild(scoreLi);
+    }
 }
 
+// Refreshes the page when the user clicks the start over button
 function returnHome() {
     window.location.reload();
 }
 
+// Global event listeners
 startButton.addEventListener("click", startQuiz);
 returnHomeEl.addEventListener("click", returnHome);
 viewHighBtn.addEventListener("click", highScoreScreen);
