@@ -8,6 +8,7 @@ var questionsCorrect = 0;
 var optionsEl = document.getElementById("options");
 var timeLeftEl = document.getElementById("timeLeft");
 var responseEl = document.getElementById("response");
+var returnHomeEl = document.getElementById("returnHome");
 
 // Variables used to create new "pages"
 var welcomeScreenEl = document.getElementById("welcomeScreen");
@@ -22,6 +23,8 @@ function startQuiz() {
     console.log("startQuiz ran");
 
     welcomeScreenEl.setAttribute("class", "hidden");
+
+    returnHomeEl.removeAttribute("class");
 
     questionScreenEl.removeAttribute("class");
 
@@ -126,10 +129,27 @@ function scoreScreen() {
 function highScoreScreen() {
     console.log("highScoreScreen ran");
 
+    
 
 }
 
+function returnHome() {
+    // Reset quiz
+    clearInterval(timeVar);
+    time = 90;
+    questionsCorrect = 0;
 
+    // Make sure that any page the user could be on is cleared
+    questionScreenEl.setAttribute("class", "hidden");
+    scoreScreenEl.setAttribute("class", "hidden");
+    highScoreScreenEl.setAttribute("class", "hidden");
+
+    // Unhide the home page
+    welcomeScreenEl.removeAttribute("class");
+
+    // Hide the button when the user is already at the start
+    returnHomeEl.setAttribute("class", "hidden");
+}
 
 
 var questions = [
@@ -187,3 +207,4 @@ var questions = [
 
 startButton.addEventListener("click", startQuiz);
 optionsEl.addEventListener("click", chooseOption);
+returnHomeEl.addEventListener("click", returnHome);
