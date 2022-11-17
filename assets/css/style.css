@@ -68,7 +68,8 @@ li:nth-child(odd) {
 }
 
 #startButton,
-#saveScore {
+#saveScore,
+#clearScores {
     margin: 1rem auto 0 auto;
 }
 

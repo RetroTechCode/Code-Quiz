@@ -21,6 +21,11 @@ var highScoreScreenEl = document.getElementById("highScoreScreen");
 var startButton = document.getElementById("startButton");
 var viewHighBtn = document.getElementById("viewHigh");
 
+// Global event listeners
+startButton.addEventListener("click", startQuiz);
+returnHomeEl.addEventListener("click", returnHome);
+viewHighBtn.addEventListener("click", highScoreScreen);
+optionsEl.addEventListener("click", chooseOption);
 
 function startQuiz() {
     // Hide welcome screen
@@ -125,30 +130,39 @@ function chooseOption(event) {
 };
 
 function scoreScreen() {
+    // Stop the timer
     clearInterval(timeVar);
 
+    // Hide the questions screen
     questionScreenEl.setAttribute("class", "hidden");
 
+    // Unhide the score screen
     scoreScreenEl.removeAttribute("class");
 
+    // Display the user's score
     var scoreEl = document.getElementById("score");
     scoreEl.textContent = userScore;
 
+    // Add functionality to the save score button
     var saveScoreBtn = document.getElementById("saveScore");
     saveScoreBtn.addEventListener("click", saveScore);
 };
 
 function saveScore() {
+    // Save the user's name that they input
     var userNameEl = document.getElementById("userName");
     var userName = userNameEl.value;
 
+    // Call the existing scores up or call a blank array to begin pushing scores into
     var scores = JSON.parse(window.localStorage.getItem("scores")) || [];
 
+    // Save the score and user name the user set to the object "userInfo"
     var userInfo = {
         userName: userName,
         userScore: userScore,
     };
 
+    // Push the user's info into the scores key within localStorage
     scores.push(userInfo);
     window.localStorage.setItem("scores", JSON.stringify(scores));
 
@@ -171,31 +185,38 @@ function highScoreScreen() {
     // Verify the start over button is shown
     returnHomeEl.removeAttribute("class")
 
+    // Call the users' scores or pull up a blank array
     var scores = JSON.parse(window.localStorage.getItem("scores")) || [];
 
+    // Sort the scores highest to lowest
     scores.sort(function (a, b) {
         return b.userScore - a.userScore;
     })
 
-    for (var i = 0; i <= 10; i++) {
+    // Display the scores on the high scores screen
+    for (var i = 0; i < scores.length; i++) {
         var scoreLi = document.createElement("li");
         scoreLi.textContent = scores[i].userName + ": " + scores[i].userScore;
 
         var scoreOl = document.getElementById("scoreOl");
         scoreOl.appendChild(scoreLi);
     }
+
+    // Adds functionality to the clear high scores button
+    var clearScoresBtn = document.getElementById("clearScores");
+    clearScoresBtn.addEventListener("click", clearScores);
+}
+
+// Clears local storage and then refreshes the page to take the user back to the welcome screen
+function clearScores() {
+    window.localStorage.removeItem('scores');
+    returnHome();
 }
 
 // Refreshes the page when the user clicks the start over button
 function returnHome() {
     window.location.reload();
 }
-
-// Global event listeners
-startButton.addEventListener("click", startQuiz);
-returnHomeEl.addEventListener("click", returnHome);
-viewHighBtn.addEventListener("click", highScoreScreen);
-optionsEl.addEventListener("click", chooseOption);
 
 var questions = [
     {
