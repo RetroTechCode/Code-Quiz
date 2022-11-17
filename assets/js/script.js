@@ -92,7 +92,7 @@ function chooseOption(event) {
 
     // If selected option is INCORRECT
     if (buttonEl.value !== questions[questionNumber].answer) {
-        time -= 15;
+        time -= 10;
 
         // Prevent time from going negative
         if (time <= 0) {
